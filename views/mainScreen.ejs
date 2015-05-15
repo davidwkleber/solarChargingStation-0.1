@@ -5,41 +5,157 @@
 
         <meta charset="utf-8">
         <title>Dummy Load</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="stylesheets/bootstrap.css" rel="stylesheet" type="text/css"/>
+		
+		 <style>
+            body{
+                background-image: url("images/retina_wood.png");
+                overflow:hidden;
+            }
+            
+            .jumbotron {
+              background-color: #eee;
+              border-style: solid;
+              border-color: #fff;
+              border-width: 20px;
+              max-height: 770px;
+			  min-height: 770px;
+            }
+            
+            .batt-container {
+                margin-top: -200px;
+                margin-left: 400px;
+                padding-top: 0px;
+                /*background-color: #beb*/
+              }
+            .vertical {
+              display: inline-block;
+              width: 25%;
+              height: 105px;
+              border: 5px solid #000000;
+              -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+              transform: rotate(-90deg);
+              box-shadow: inset 0px 4px 6px #ccc;
+            }
 
+            .vertical:before {
+              content:"";
+              width: 15px;
+              height: 40px;
+              background-color:#000000;
+              margin-top: 30px;
+              margin-left: 225px;
+              border: 0px solid #f1f1f1;
+              position:absolute;
+              border-bottom-right-radius: 2px;
+              border-top-right-radius: 2px;
+            }
+
+            .progress-bar {
+              box-shadow: inset 0px 4px 6px  rgba(100,100,100,0.5);
+            }
+
+            p.rotate {
+              font-size:30px;
+              padding-left:40px;
+              padding-top:30px;
+              -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+              transform: rotate(90deg);
+            }
+            
+            .thin{
+                position:relative;
+                left: 18px;
+            }
+            
+            .mono{
+                position:relative;
+                left: 32px;
+            }
+            
+            .inverter{
+                position:relative;
+                left: 650px;
+                top: -200px;
+            }
+        </style>
 
     </head>
     <body>
-
-		<div class="DLbuttonDiv">
-
-			<span class="DLbuttons">
-				<div>
-				<input type="image" src="/images/up.png"  class="DLupButton" id="DLupButton" name="DLupButton" ></button>
-				</div><div>
-				<input type="image" src="/images/down.png"  class="DLdownButton" id="DLdownButton" ></button>
-				</div>
-			</span>
-		</div>
- 
-		 <div class="DLinitDiv" id="DLinitDiv" name="DLinitDiv"> 
-
-		 <form>
-<div class="DLinitButton" id="DLinitButton" name="DLinitButton">
-    <input type="checkbox" name="DLinitButton-checkbox" class="DLinitButton-checkbox" id="myDLinitButton" checked>
-    <label class="DLinitButton-label" for="myDLinitButton">
-        <span class="DLinitButton-inner"></span>
-        <span class="DLinitButton-switch"></span>
-    </label>
-</div>
-</form>
-</div>	
-		
+			
+		<script src="javascripts/jquery/jquery.js" type="text/javascript"></script>
+        <script src="javascripts/bootstrap.js" type="text/javascript"></script>
+        <script>
+            $(document).ready(function(){
+                $('[data-toggle="popover"]').popover();   
+            });
+			
+		$(document).ready(function(){
+			$( "#btn" ).click(function() {
+			  $( "#test" ).toggle();
+			});
+		});
+        </script>
 	
-	<div class="dummyLoadDiv">
- <form name="dummyLoadForm" id"dummyLoadForm" class="dummyLoadForm" action="/dummyLoad" method="post">
-
-         <a class="DLawesome-button"></a>
-	        <p class="DLcurrentValue" id="DLcurrentValue" ><span>0 %</span></p>
+        <div class="container-fluid">
+                <nav class="navbar navbar-default">
+                  <div class="container-fluid">
+                    <div class="navbar-header">
+                      <a class="navbar-brand" href="#">Solar Charging Station</a>
+                    </div>
+                    <div>
+                      <ul class="nav navbar-nav">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Components</a></li>
+                        <li class="active"><a href="#">Experiments</a></li>
+                      </ul>
+                    </div>
+                  </div>
+                </nav>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="jumbotron">
+                        <div class="text-center">
+                        <div class="btn-group-vertical" data-toggle="buttons">
+                            <label class="btn btn-primary btn-lg"  id="btn">
+                              <input type="checkbox"> Intensity
+                            </label>
+                            <br>
+                            <label class="btn btn-primary btn-lg">
+                              <input type="checkbox"> Temperature
+                            </label>
+                            <br>
+                            <label class="btn btn-primary btn-lg">
+                              <input type="checkbox"> Shading
+                            </label>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="jumbotron">
+                       <div class="Diagram">  
+                            <img src="images/poly.png" width="137" height="279" alt="" data-toggle="popover" title="Poly Crystalline Module" data-placement="top" data-content="Voltage: 23V Current: 2A"/>
+                            <img class="thin" src="images/thinfilm.png" width="137" height="279" alt="" data-toggle="popover" title="Thin Film Module" data-placement="top" data-content="Voltage: 26V Current: 21A"/>
+                            <img class="mono" src="images/mono.png" width="137" height="279" alt="" data-toggle="popover" title="Mono Crystalline Module" data-placement="top" data-content="Voltage: 26V Current: 21A"/>
+                            <br>
+                            <img src="images/cc2.gif" alt=""/>
+                            <div class="batt-container">
+                                <div class="progress vertical">
+                                    <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%"><p class="rotate">90%</p></div>  
+                                </div>
+                            </div>
+                            <img id="test" class="inverter" src="images/inverter.gif" width="156" height="258" alt=""/>
+                       </div>               
+                    </div>
+                </div>
+            </div>
+        </div>
+	
+	
+<div class="dummyLoadDiv">
+<form name="dummyLoadForm" id"dummyLoadForm" class="dummyLoadForm" action="/dummyLoad" method="post">
 
         <script>
 var mouseIsDown = "false";
