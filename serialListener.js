@@ -81,37 +81,11 @@ io.sockets.on('connection', function(socket){
 		});
 		//asserting();
 	});
-    WSserialPort.on("open", function () {
-		console.log('serialListener.WSserialPort.on Open ' + portConfig.windSpeed.port);
+ 
 
-		//
-		//
-		//My guess is, that the function sends to fast after the port opening. The uController is still in the reset stage
-	
-        sleep(2000, function() {
-    // executes after two second, and blocks the thread, should be avoided. maybe we find another solution
-		});
-	});
 
 	
-    PAserialPort.on("open", function () {
-		console.log('serialListener.PAserialPort.on Open ' + portConfig.stepper.port);
-		//
-		//
-		//My guess is, that the function sends to fast after the port opening. The uController is still in the reset stage
-
-        sleep(2000, function() {
-    // executes after two second, and blocks the thread, should be avoided. maybe we find another solution
-    });
-	
-	DLserialPort.on("open", function () {
-		console.log('serialListener.DLserialPort.on Open ' + portConfig.loadController.port);
-        sleep(2000, function() {
-		});
-		
-	});
-	
-  }); 
+  }; 
  
  var sendData = '';
  var receivedData = '';
@@ -138,29 +112,12 @@ io.sockets.on('connection', function(socket){
 			var now = new Date();
 			var formatNow = now.getDate()+"/"+(now.getMonth()+1)+"/"+now.getFullYear()+'\:'+now.getHours()+'\:'+now.getMinutes()+'\:'+now.getSeconds()+'\:'+now.getMilliseconds();
 		
-		/* use the same calculation for changin wind speed % to a m/s value
-			this is from windsock.ejs. 
-			Not the best I know, but hope it works, otherwise windSpeedValue was a percentage...
-		*/
-		var windSpeedValueText = (windSpeedValue*0.1456)-0.5523;
-		windSpeedValueText =  +(Math.round(windSpeedValueText +"e+1")+"e-1");
-		
-		/* do the same for the pitch angle.
-		*/
-		var pitchAngleValueText = (pitchAngleValue-100)/10;
-		
-		/* and dummy load
-			NOTE, the magic number 201 is from DLnumFrames in the dummyLoad.ejs file
-		*/
-		var dummyLoadValueText = ((dummyLoadValue-1)/201)*100;
-		dummyLoadValueText =  +(Math.round(dummyLoadValueText +"e+1")+"e-1");
+
+	
 		
 			// console.log('SEND update data : '+sendData);
 			var sendJSON = '{\n  \"date\": \"'+formatNow+'\",';
 			sendJSON += sendData.substring(1, sendData.length-3);
-			sendJSON += ",\n  \"windSpeed\": "+windSpeedValueText+",\n";
-			sendJSON += "  \"pitchAngle\": "+pitchAngleValueText+",\n";
-			sendJSON += "  \"dummyLoad\": "+dummyLoadValueText+"\n";
 			sendJSON += "}";
 			
 			// console.log( "serialListener send JSON : \n"+sendJSON);	
@@ -179,16 +136,6 @@ io.sockets.on('connection', function(socket){
  
  
  
-    WSserialPort.on('data', function(data) {
-         receivedData += data.toString();
-	}); 
-    PAserialPort.on('data', function(data) {
-         receivedData += data.toString();
-	}); 
-    DLserialPort.on('data', function(data) {
-         receivedData += data.toString();
-	}); 
-   
 
 };
 
