@@ -10,30 +10,7 @@ var SerialPort = serialport.SerialPort; // localize object constructor
 
 console.log('ports '+ portConfig.stepper.port +" "+ portConfig.windSpeed.port + " " + portConfig.measurement.port);
 
-   
-   PAserialPort = new SerialPort(portConfig.stepper.port, {
  
-		// test rig
-		// baudrate: 9600,
-		
-		// wind tower
-		baudrate: portConfig.stepper.baudrate,
-
-	}, function (err) {
-		if (err) console.log('Eroror opening Pitch Angle port: ' +  portConfig.stepper.port);
-	});
-	  
-   WSserialPort = new SerialPort(portConfig.windSpeed.port, {
-		baudrate: portConfig.windSpeed.baudrate,
-	}, function (err) {
-		if (err) console.log('Eroror opening Wind Speed port: ' +  portConfig.windSpeed.port);
-	});
-		
-	DLserialPort = new SerialPort(portConfig.loadController.port, {
-		baudrate: portConfig.loadController.baudrate,
-	}, function (err) {
-		if (err) console.log('Eroror opening dummy load  port: ' +  portConfig.loadController.port);
-	});
 
 	DIserialPort = new SerialPort(portConfig.measurement.port, {
 		baudrate: portConfig.measurement.baudrate,
