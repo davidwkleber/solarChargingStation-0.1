@@ -129,6 +129,7 @@
                             <label class="btn btn-primary btn-lg">
                               <input type="checkbox"> Shading
                             </label>
+							<h2>text</h2>
                         </div>
                         </div>
                     </div>
@@ -136,6 +137,7 @@
                 <div class="col-md-10">
                     <div class="jumbotron">
                        <div class="Diagram">  
+					   
                             <img src="images/poly.png" width="137" height="279" alt="" data-toggle="popover" title="Poly Crystalline Module" data-placement="top" data-content="Voltage: 23V Current: 2A"/>
                             <img class="thin" src="images/thinfilm.png" width="137" height="279" alt="" data-toggle="popover" title="Thin Film Module" data-placement="top" data-content="Voltage: 26V Current: 21A"/>
                             <img class="mono" src="images/mono.png" width="137" height="279" alt="" data-toggle="popover" title="Mono Crystalline Module" data-placement="top" data-content="Voltage: 26V Current: 21A"/>
@@ -147,6 +149,7 @@
                                 </div>
                             </div>
                             <img id="test" class="inverter" src="images/inverter.gif" width="156" height="258" alt=""/>
+							
                        </div>               
                     </div>
                 </div>
@@ -158,6 +161,41 @@
 <form name="dummyLoadForm" id"dummyLoadForm" class="dummyLoadForm" action="/dummyLoad" method="post">
 
         <script>
+				var recordDataItem;
+
+					
+			var recordsocket = io.connect('http://127.0.0.1:1337');
+
+			recordsocket.on('connect', function (data) {
+				//	console.log('record client connected ');
+				//	console.log('record connected data ' + data);
+			
+				jQuery(function ($) {
+					recordsocket.on('updateData', function (data) {
+						// console.log('record update raw: ' + data);
+						
+							recordDataItem = JSON.parse(data);
+						 	console.log('record updateData.T_mono  ' + recordDataItem.T_mono);						 	console.log('record updateData.T_mono  ' + recordDataItem.T_mono);
+						 	console.log('record updateData.T_thin  ' + recordDataItem.T_thin);
+						 	console.log('record updateData.t_poly  ' + recordDataItem.T_poly);
+						 	console.log('record updateData.U_mono  ' + recordDataItem.U_mono);
+						 	console.log('record updateData.U_thin  ' + recordDataItem.U_thin);
+						 	console.log('record updateData.U_poly  ' + recordDataItem.U_poly);
+						 	console.log('record updateData.I_mono  ' + recordDataItem.I_mono);
+						 	console.log('record updateData.I_thin  ' + recordDataItem.I_thin);
+						 	console.log('record updateData.I_poly  ' + recordDataItem.I_poly);
+						 	console.log('record updateData.P_mono  ' + recordDataItem.P_mono);
+						 	console.log('record updateData.P_thin  ' + recordDataItem.P_thin);
+						 	console.log('record updateData.P_poly  ' + recordDataItem.P_poly);
+
+					});	
+			
+				});
+			});	
+		
+		
+		
+		
 var mouseIsDown = "false";
 var DLframeToPlay = 0;
 var DLnumFrames = 201;
