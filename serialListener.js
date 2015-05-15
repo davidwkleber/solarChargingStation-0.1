@@ -50,7 +50,7 @@ function serialListener()
 	
  console.log('serialListenerInit called ');
 
-var io = require('socket.io').listen(1337);
+io = require('socket.io').listen(1337);
 
 
 console.log('serialListener: setup connection now');
@@ -133,11 +133,7 @@ io.sockets.on('connection', function(socket){
 
 		};
 	}); 
- 
- 
- 
 
-};
 
 
 serialListener.doSomething = function() {
