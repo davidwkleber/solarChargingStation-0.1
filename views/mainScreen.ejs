@@ -8,95 +8,304 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="stylesheets/bootstrap.css" rel="stylesheet" type="text/css"/>
 		
-		 <style>
-            body{
-                background-image: url("images/retina_wood.png");
-                overflow:hidden;
-            }
-            
-            .jumbotron {
-              background-color: #eee;
-              border-style: solid;
-              border-color: #fff;
-              border-width: 20px;
-              max-height: 770px;
-			  min-height: 770px;
-            }
-            
-            .batt-container {
-                margin-top: -200px;
-                margin-left: 400px;
-                padding-top: 0px;
-                /*background-color: #beb*/
-              }
-            .vertical {
-              display: inline-block;
-              width: 25%;
-              height: 105px;
-              border: 5px solid #000000;
-              -webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
-              transform: rotate(-90deg);
-              box-shadow: inset 0px 4px 6px #ccc;
-            }
+		<style>
+      
+      body{
+        background-image: url("images/retina_wood.png");
+        overflow:hidden;
+      }
+ 
+      .jumbotron {
+        background-color: #eee;
+        border-style: solid;
+        border-color: #fff;
+        border-width: 20px;
+        max-height: 770px;
+        min-height: 770px;
+        box-shadow: 0px 3px 8px rgba(0,0,0,0.42);
+        -webkit-box-shadow: 0px 3px 8px rgba(0,0,0,0.42);
+      }
 
-            .vertical:before {
-              content:"";
-              width: 15px;
-              height: 40px;
-              background-color:#000000;
-              margin-top: 30px;
-              margin-left: 225px;
-              border: 0px solid #f1f1f1;
-              position:absolute;
-              border-bottom-right-radius: 2px;
-              border-top-right-radius: 2px;
-            }
+			.jumbotron-menu {
+        background-color: #eee;
+        border-style: solid;
+        border-color: #fff;
+        border-width: 20px;
+        max-height: 770px;
+			  min-height: 300px;
+      }
 
-            .progress-bar {
-              box-shadow: inset 0px 4px 6px  rgba(100,100,100,0.5);
-            }
+      .stop{
+        position:relative;
+        top:400px;
+        left:-20px;
+        box-shadow: 0px 3px 8px rgba(0,0,0,0.42);
+        -webkit-box-shadow: 0px 3px 8px rgba(0,0,0,0.42);
+      }
+			
+      .rec{
+        position:relative;
+        top:400px;
+        left:20px;
+        border-radius: 100px;
+        box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.42);
+        -webkit-box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.42);
 
-            p.rotate {
-              font-size:30px;
-              padding-left:40px;
-              padding-top:30px;
-              -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
-              transform: rotate(90deg);
-            }
+      }
+      .batt-container {
+        margin-top: 200px;
+        margin-left: 350px;
+        padding-top: 0px;
+      }
+
+      .vertical {
+        display: inline-block;
+        width: 25%;
+        height: 105px;
+        border: 5px solid #000000;
+        webkit-transform: rotate(-90deg);
+        transform: rotate(-90deg);
+        box-shadow: inset 0px 4px 6px #ccc;
+      }
+
+      .vertical:before {
+        content:"";
+        width: 15px;
+        height: 40px;
+        background-color:#000000;
+        margin-top: 30px;
+        margin-left: 238px;
+        border: 0px solid #f1f1f1;
+        position:absolute;
+        border-bottom-right-radius: 2px;
+        border-top-right-radius: 2px;
+      }
+
+      .progress-bar {
+        box-shadow: inset 0px 4px 6px  rgba(100,100,100,0.5);
+      }
+
+      p.rotate {
+        font-size:30px;
+        padding-left:40px;
+        padding-top:30px;
+        -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
+        transform: rotate(90deg);
+      }
+			
             
-            .thin{
-                position:relative;
-                left: 18px;
-            }
+			@font-face { font-family: Digital; src: url('fonts/digital-7.ttf'); 
+			}
+			
+			.meter{
+				font-family: Digital;
+				color: red;
+				background-color: black;
+				font-size: 20px;
+				z-index:1;
+			}
+			
+      .poly{
+				position: relative;
+				left: -8px;
+				top: 98px;
+				box-shadow: 0px 10px 8px -5px rgba(0,0,0,0.42);
+				-webkit-box-shadow: 0px 10px 8px -5px rgba(0,0,0,0.42);
+				z-index:1;
+      }
+			
+			.thin{
+        position:relative;
+        left: -10px;
+				top: 98px;
+				box-shadow: 0px 10px 8px -5px rgba(0,0,0,0.42);
+				-webkit-box-shadow: 0px 10px 8px -5px rgba(0,0,0,0.42);
+				z-index:1;
+      }
             
-            .mono{
-                position:relative;
-                left: 32px;
-            }
+      .mono{
+        position:relative;
+        left: -12px;
+			  top: 98px;
+			  box-shadow: 0px 10px 8px -5px rgba(0,0,0,0.42);
+			  -webkit-box-shadow: 0px 10px 8px -5px rgba(0,0,0,0.42);
+			  z-index:1;
+      }
+			
+			.cc{
+        position:absolute;
+        top: 418px;
+      }
             
-            .inverter{
-                position:relative;
-                left: 650px;
-                top: -200px;
-            }
-        </style>
+      .inverter{
+        position:relative;
+        left: 565px;
+        top: -210px;
+      }
+
+       .cable{
+        position:absolute;
+        left: 618px;
+        top: 620px;
+      }
+			
+			.label-intensity{
+        position:absolute;
+        left: 650px;
+        top: 70px;
+      }
+			
+			.label-temperature{
+        position:absolute;
+        left: 650px;
+        top: 150px;
+      }
+			
+			.meter-vPoly{
+        position:absolute;
+        left: 110px;
+        top: 25px;
+      }
+			
+      .meter-iPoly{
+        position:absolute;
+        left: 110px;
+        top: 71px;
+      }
+      
+      .meter-pPoly{
+        position:absolute;
+        left: 110px;
+        top: 118px;
+      }
+
+			.reading-vPoly{
+				position:absolute;
+				left: 127px;
+				top: 35px;
+				width: 60px;
+				height: 25px;
+				z-index: 2;
+			}
+
+      .reading-iPoly{
+        position:absolute;
+        left: 127px;
+        top: 82px;
+        width: 60px;
+        height: 25px;
+        z-index: 2;
+      }
+
+      .reading-pPoly{
+        position:absolute;
+        left: 127px;
+        top: 128px;
+        width: 60px;
+        height: 25px;
+        z-index: 2;
+      }
+
+      .meter-vThin{
+        position:absolute;
+        left: 250px;
+        top: 25px;
+      }
+      
+      .meter-iThin{
+        position:absolute;
+        left: 250px;
+        top: 71px;
+      }
+      
+      .meter-pThin{
+        position:absolute;
+        left: 250px;
+        top: 118px;
+      }
+
+      .reading-vThin{
+        position:absolute;
+        left: 267px;
+        top: 35px;
+        width: 60px;
+        height: 25px;
+        z-index: 2;
+      }
+
+      .reading-iThin{
+        position:absolute;
+        left: 267px;
+        top: 82px;
+        width: 60px;
+        height: 25px;
+        z-index: 2;
+      }
+
+      .reading-pThin{
+        position:absolute;
+        left: 267px;
+        top: 128px;
+        width: 60px;
+        height: 25px;
+        z-index: 2;
+      }
+      
+      .meter-vMono{
+        position:absolute;
+        left: 385px;
+        top: 25px;
+      }
+      
+      .meter-iMono{
+        position:absolute;
+        left: 385px;
+        top: 71px;
+      }
+      
+      .meter-pMono{
+        position:absolute;
+        left: 385px;
+        top: 118px;
+      }
+
+      .reading-vMono{
+        position:absolute;
+        left: 402px;
+        top: 35px;
+        width: 60px;
+        height: 25px;
+        z-index: 2;
+      }
+
+      .reading-iMono{
+        position:absolute;
+        left: 402px;
+        top: 82px;
+        width: 60px;
+        height: 25px;
+        z-index: 2;
+      }
+
+      .reading-pMono{
+        position:absolute;
+        left: 402px;
+        top: 128px;
+        width: 60px;
+        height: 25px;
+        z-index: 2;
+      }
+
+        
+    </style>
 
     </head>
     <body>
 			
 		<script src="javascripts/jquery/jquery.js" type="text/javascript"></script>
+		<script src="javascripts/jquery/jquery-ui.js" type="text/javascript"></script>
+		<script src="javascripts/jquery/sevenSeg.js" type="text/javascript"></script>
         <script src="javascripts/bootstrap.js" type="text/javascript"></script>
-        <script>
-            $(document).ready(function(){
-                $('[data-toggle="popover"]').popover();   
-            });
-			
-		$(document).ready(function(){
-			$( "#btn" ).click(function() {
-			  $( "#test" ).toggle();
-			});
-		});
-        </script>
 	
         <div class="container-fluid">
                 <nav class="navbar navbar-default">
@@ -118,40 +327,90 @@
                     <div class="jumbotron">
                         <div class="text-center">
                         <div class="btn-group-vertical" data-toggle="buttons">
-                            <label class="btn btn-primary btn-lg"  id="btn">
+                            <label class="btn btn-primary btn-lg"  id="btnIntensity">
                               <input type="checkbox"> Intensity
                             </label>
                             <br>
-                            <label class="btn btn-primary btn-lg">
+                            <label class="btn btn-primary btn-lg" id="btnTemperature">
                               <input type="checkbox"> Temperature
                             </label>
                             <br>
                             <label class="btn btn-primary btn-lg">
                               <input type="checkbox"> Shading
                             </label>
-							<h2>text</h2>
                         </div>
                         </div>
+
+                      <!-- Rec & Stop Buttons -->
+                      <img class="stop" src="images/stop.png" alt="" />
+                      <img class="rec" src="images/rec.png" alt""/>  
+
                     </div>
                 </div>
                 <div class="col-md-10">
-                    <div class="jumbotron">
-                       <div class="Diagram">  
-					   
-                            <img src="images/poly.png" width="137" height="279" alt="" data-toggle="popover" title="Poly Crystalline Module" data-placement="top" data-content="Voltage: 23V Current: 2A"/>
-                            <img class="thin" src="images/thinfilm.png" width="137" height="279" alt="" data-toggle="popover" title="Thin Film Module" data-placement="top" data-content="Voltage: 26V Current: 21A"/>
-                            <img class="mono" src="images/mono.png" width="137" height="279" alt="" data-toggle="popover" title="Mono Crystalline Module" data-placement="top" data-content="Voltage: 26V Current: 21A"/>
-                            <br>
-                            <img src="images/cc2.gif" alt=""/>
-                            <div class="batt-container">
-                                <div class="progress vertical">
-                                    <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%"><p class="rotate">90%</p></div>  
-                                </div>
-                            </div>
-                            <img id="test" class="inverter" src="images/inverter.gif" width="156" height="258" alt=""/>
-							
-                       </div>               
-                    </div>
+                  <div class="jumbotron">
+                    <div class="Diagram">
+
+                    <!--Polycristalline Module  -->
+                      <img class="poly" src="images/poly.png" width="137" height="279" alt=""/>
+                      
+                      <img class="meter-vPoly" src="images/meter.png" width="100" height="45" alt=""/>
+                      <div id="vPoly" class="reading-vPoly meter">Error</div> <!-- "Error" as default message in case Arduino communication fails-->
+
+                      <img class="meter-iPoly" src="images/meter.png" width="100" height="45" alt=""/>
+                      <div id="iPoly" class="reading-iPoly meter">Error</div>
+
+                      <img class="meter-pPoly" src="images/meter.png" width="100" height="45" alt=""/>
+                      <div id="pPoly" class="reading-pPoly meter">Error</div>
+
+                    <!-- Thin-film Module -->
+                      <img class="thin" src="images/thinfilm.png" width="137" height="279" alt=""/>
+
+                      <img class="meter-vThin" src="images/meter.png" width="100" height="45" alt=""/>
+                      <div id="vThin" class="reading-vThin meter">Error</div> <!-- "Error" as default message in case Arduino communication fails-->
+
+                      <img class="meter-iThin" src="images/meter.png" width="100" height="45" alt=""/>
+                      <div id="iThin" class="reading-iThin meter">Error</div>
+
+                      <img class="meter-pThin" src="images/meter.png" width="100" height="45" alt=""/>
+                      <div id="pThin" class="reading-pThin meter">Error</div>
+
+
+
+                    <!-- Monocrystalline Module -->
+                      <img class="mono" src="images/mono.png" width="137" height="279" alt=""/>
+
+                      <img class="meter-vMono" src="images/meter.png" width="100" height="45" alt=""/>
+                      <div id="vMono" class="reading-vMono meter">Error</div> <!-- "Error" as default message in case Arduino communication fails-->
+
+                      <img class="meter-iMono" src="images/meter.png" width="100" height="45" alt=""/>
+                      <div id="iMono" class="reading-iMono meter">Error</div>
+
+                      <img class="meter-pMono" src="images/meter.png" width="100" height="45" alt=""/>
+                      <div id="pMono" class="reading-pMono meter">Error</div>
+
+                    <!-- Charge Controllers & Cables   -->
+                      <br>
+                      <img class="cc" src="images/cc2.gif" width="420" height="327" alt=""/>
+
+                    <!-- Battery -->
+                      <div class="batt-container">
+                        <div class="progress vertical">
+                          <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%"><p class="rotate">90%</p>
+                          </div>  
+                        </div>
+                      </div>
+
+                    <!-- Connection between Battery and Inverter -->
+                      <img class="cable" src="images/cable2.gif" alt=""/>
+
+                    <!-- Inverter -->
+                      <img class="inverter" src="images/inverter.gif" width="156" height="258" alt=""/>
+
+          						<h1><span class="label label-success label-intensity" style="display:none" id="showIntensity">Intensity </span></h1>
+          						<h1><span class="label label-success label-temperature" style="display:none" id="showTemperature">Temperature </span></h1>
+                    </div>               
+                  </div>
                 </div>
             </div>
         </div>
@@ -166,6 +425,19 @@
 					
 			var datasocket = io.connect('http://127.0.0.1:1337');
 
+			$(document).ready(function(){
+								
+				$( "#btnIntensity").click(function() {
+				  $( "#showIntensity" ).toggle();
+				});
+				
+				$( "#btnTemperature").click(function() {
+				  $( "#showTemperature" ).toggle();
+				});
+				
+            });
+			
+			
 			datasocket.on('connect', function (data) {
 				//	console.log('record client connected ');
 				//	console.log('record connected data ' + data);
@@ -175,9 +447,24 @@
 						// console.log('record update raw: ' + data);
 						
 							recordDataItem = JSON.parse(data);
-						 	console.log('record updateData.T_mono  ' + recordDataItem.T_mono);						 	console.log('record updateData.T_mono  ' + recordDataItem.T_mono);
+							document.getElementById("showIntensity").innerHTML = recordDataItem.L_wm2 + ' W/m2';
+							
+              document.getElementById("vPoly").innerHTML = recordDataItem.U_poly + ' V';
+              document.getElementById("iPoly").innerHTML = recordDataItem.I_poly + ' A';
+              document.getElementById("pPoly").innerHTML = recordDataItem.P_poly + ' W';
+
+              document.getElementById("vThin").innerHTML = recordDataItem.U_thin + ' V';
+              document.getElementById("iThin").innerHTML = recordDataItem.I_thin + ' A';
+              document.getElementById("pThin").innerHTML = recordDataItem.P_thin + ' W';
+
+              document.getElementById("vMono").innerHTML = recordDataItem.U_mono + ' V';
+              document.getElementById("iMono").innerHTML = recordDataItem.I_mono + ' A';
+              document.getElementById("pMono").innerHTML = recordDataItem.P_mono + ' W';
+							
+							console.log('record updateData.L_wm2  ' + recordDataItem.L_wm2);
+						 	console.log('record updateData.T_mono  ' + recordDataItem.T_mono);
 						 	console.log('record updateData.T_thin  ' + recordDataItem.T_thin);
-						 	console.log('record updateData.t_poly  ' + recordDataItem.T_poly);
+						 	console.log('record updateData.T_poly  ' + recordDataItem.T_poly);
 						 	console.log('record updateData.U_mono  ' + recordDataItem.U_mono);
 						 	console.log('record updateData.U_thin  ' + recordDataItem.U_thin);
 						 	console.log('record updateData.U_poly  ' + recordDataItem.U_poly);
@@ -190,10 +477,11 @@
 
 					});	
 			
-				});
+				});  
 			});	
 		
-		
+			  var popover = $('[data-toggle="popover"]').data('bs.popover');
+				popover.options.content = "YOUR NEW TEXT";
 		
 
 				
