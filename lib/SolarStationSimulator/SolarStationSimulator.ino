@@ -19,6 +19,9 @@ void loop() {
 
   randomSeed(analogRead(0)); //Initialize random number generator by reading an unconnected pin
   
+  //Light
+  jSend["L_wm2"] = float(random(lower,upper))+float(random(1,1000))/1000;
+  
   //Temperature
   jSend["T_mono"] = float(random(lower,upper))+float(random(1,1000))/1000;
   jSend["T_thin"] = float(random(lower,upper))+float(random(1,1000))/1000;
@@ -44,8 +47,5 @@ void loop() {
   //jSend.printTo(Serial); //Prints everything in one line
   Serial.println();  
   
-  
-  //jSend.printTo(Serial);
-  //jSend.prettyPrintTo(Serial);
-  //Serial.println();
+  delay(2000); //Waits two seconds
 }

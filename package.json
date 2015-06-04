@@ -13,8 +13,8 @@
     "ejs": "^0.8.8",
     "express": "^4.2.0",
     "morgan": "^1.0.1",
-    "serialport": "1.4.6",
-    "socket.io": "1.1.0",
+    "serialport": "^1.4.6",
+    "socket.io": "^1.1.0",
     "static-favicon": "^1.0.2"
   }
 }
