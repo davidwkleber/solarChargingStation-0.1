@@ -52,15 +52,22 @@
         -webkit-box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.42);
 
       }
+
+      .sun{
+        position:absolute;
+        top: 20px;
+        left: 1000px;
+      }
+
       .batt-container {
-        margin-top: 200px;
-        margin-left: 350px;
+        margin-top: 205px;
+        margin-left: 370px;
         padding-top: 0px;
       }
 
       .vertical {
         display: inline-block;
-        width: 25%;
+        width: 200px;
         height: 105px;
         border: 5px solid #000000;
         webkit-transform: rotate(-90deg);
@@ -74,7 +81,7 @@
         height: 40px;
         background-color:#000000;
         margin-top: 30px;
-        margin-left: 238px;
+        margin-left: 193px;
         border: 0px solid #f1f1f1;
         position:absolute;
         border-bottom-right-radius: 2px;
@@ -86,9 +93,14 @@
       }
 
       p.rotate {
+        position: absolute;
+        top: 11px;
+        left: 11px;
         font-size:30px;
         padding-left:40px;
         padding-top:30px;
+        color: white;
+        text-shadow: 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black, 0 0 4px black;
         -webkit-transform: rotate(90deg); /* Chrome, Safari, Opera */
         transform: rotate(90deg);
       }
@@ -151,8 +163,8 @@
 			
 			.label-intensity{
         position:absolute;
-        left: 650px;
-        top: 70px;
+        left: 1150px;
+        top: 45px;
       }
 			
 			.label-temperature{
@@ -296,6 +308,22 @@
         z-index: 2;
       }
 
+      .label-warning{
+        background-color: #F3DF03;
+      }
+
+      .bike{
+        position: absolute;
+        left: 859px;
+        top: 450px;
+      }
+
+
+      .cablebike{
+        position: absolute;
+        left: 816px;
+        top: 620px;
+      }
         
     </style>
 
@@ -375,8 +403,6 @@
                       <img class="meter-pThin" src="images/meter.png" width="100" height="45" alt=""/>
                       <div id="pThin" class="reading-pThin meter">Error</div>
 
-
-
                     <!-- Monocrystalline Module -->
                       <img class="mono" src="images/mono.png" width="137" height="279" alt=""/>
 
@@ -396,7 +422,7 @@
                     <!-- Battery -->
                       <div class="batt-container">
                         <div class="progress vertical">
-                          <div class="progress-bar progress-bar-success progress-bar-striped active" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 90%"><p class="rotate">90%</p>
+                          <div class="progress-bar progress-bar-success progress-bar-striped active bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100" style="width: 0%"><p class="rotate" id="battery">ERR</p>
                           </div>  
                         </div>
                       </div>
@@ -407,8 +433,19 @@
                     <!-- Inverter -->
                       <img class="inverter" src="images/inverter.gif" width="156" height="258" alt=""/>
 
-          						<h1><span class="label label-success label-intensity" style="display:none" id="showIntensity">Intensity </span></h1>
-          						<h1><span class="label label-success label-temperature" style="display:none" id="showTemperature">Temperature </span></h1>
+                    <!-- Labels -->
+          						<h1><span class="label label-warning label-intensity" style="display:none" id="showIntensity">Intensity </span></h1>
+          						<h1><span class="label label-danger label-temperature" style="display:none" id="showTemperature">Temperature </span></h1>
+
+                    <!-- Sun -->
+                      <img class="sun" src="images/sunw.gif" alt=""/>
+
+                    <!-- Bike -->
+                      <img class="bike" src="images/bike.png" width="462" height="269" alt=""/>
+
+                    <!-- Connection between Battery and Bike -->
+                      <img class="cablebike" src="images/cablebike.gif" height="21" width="43" alt=""/>
+
                     </div>               
                   </div>
                 </div>
@@ -424,6 +461,7 @@
 
 					
 			var datasocket = io.connect('http://127.0.0.1:1337');
+      var $bar = $('.bar');
 
 			$(document).ready(function(){
 								
@@ -436,7 +474,6 @@
 				});
 				
             });
-			
 			
 			datasocket.on('connect', function (data) {
 				//	console.log('record client connected ');
@@ -461,6 +498,11 @@
               document.getElementById("iMono").innerHTML = recordDataItem.I_mono + ' A';
               document.getElementById("pMono").innerHTML = recordDataItem.P_mono + ' W';
 							
+              document.getElementById("showTemperature").innerHTML = recordDataItem.T_mono + ' °C';
+
+              document.getElementById("battery").innerHTML = recordDataItem.B_soc + ' %';
+              $bar.width(recordDataItem.B_soc*2);
+
 							console.log('record updateData.L_wm2  ' + recordDataItem.L_wm2);
 						 	console.log('record updateData.T_mono  ' + recordDataItem.T_mono);
 						 	console.log('record updateData.T_thin  ' + recordDataItem.T_thin);
