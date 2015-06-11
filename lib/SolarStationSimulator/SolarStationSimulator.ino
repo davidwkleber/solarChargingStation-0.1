@@ -10,6 +10,7 @@ JsonObject& jSend = jsonBuffer.createObject();
 
 int lower = 20; //define lower and upper limits of random numbers
 int upper = 25;
+int soc = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -41,6 +42,21 @@ void loop() {
   jSend["P_mono"] = float(random(lower,upper))+float(random(1,1000))/1000;
   jSend["P_thin"] = float(random(lower,upper))+float(random(1,1000))/1000;
   jSend["P_poly"] = float(random(lower,upper))+float(random(1,1000))/1000;
+  
+  //Temperatures
+  jSend["T_mono"] = float(random(lower,upper))+float(random(1,1000))/1000;
+  jSend["T_mono"] = float(random(lower,upper))+float(random(1,1000))/1000;
+  jSend["T_mono"] = float(random(lower,upper))+float(random(1,1000))/1000;
+  
+  //Battery
+  if(soc > 100){
+    soc = 0;
+    jSend["B_soc"] = soc;
+    soc = soc + 10;
+  } else{
+    jSend["B_soc"] = soc;
+    soc = soc + 10;
+  }
   
   jSend.prettyPrintTo(Serial);
   Serial.println("EOL");
