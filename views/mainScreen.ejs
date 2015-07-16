@@ -36,17 +36,17 @@
       }
 
       .stop{
-        position:relative;
-        top:400px;
-        left:-20px;
+        position:absolute;
+        top:665px;
+        left:70px;
         box-shadow: 0px 3px 8px rgba(0,0,0,0.42);
         -webkit-box-shadow: 0px 3px 8px rgba(0,0,0,0.42);
       }
 			
       .rec{
-        position:relative;
-        top:400px;
-        left:20px;
+        position:absolute;
+        top:665px;
+        left:180px;
         border-radius: 100px;
         box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.42);
         -webkit-box-shadow: 0px 3px 10px 0px rgba(0,0,0,0.42);
@@ -167,10 +167,25 @@
         top: 45px;
       }
 			
-			.label-temperature{
+			.label-temperaturePoly{
         position:absolute;
         left: 650px;
         top: 150px;
+        z-index: 3;
+      }
+      
+      .label-temperatureThin{
+        position:absolute;
+        left: 650px;
+        top: 245px;
+        z-index: 3;
+      }
+      
+      .label-temperatureMono{
+        position:absolute;
+        left: 650px;
+        top: 340px;
+        z-index: 3;
       }
 			
 			.meter-vPoly{
@@ -325,10 +340,12 @@
         top: 620px;
       }
 
-      .draggable {
+
+
+      .horizontalbar {
         position: absolute;
-        width: 140px;
-        height: 40px;
+        width: 135px;
+        height: 35px;
         background: #2F4F4F;
         border-radius: 10px;
         z-index: 3;
@@ -336,12 +353,25 @@
         left: 800px;
       }
 
-      .draggable.is-dragging { opacity: 0.7; }
+      .horizontalbar.is-dragging { opacity: 0.7; }
 
-      .draggable2 {
+      .verticalbar {
         position: absolute;
-        width: 40px;
-        height: 40px;
+        width: 35px;
+        height: 125px;
+        background: #2F4F4F;
+        border-radius: 10px;
+        z-index: 3;
+        top: 300px;
+        left: 800px;
+      }
+
+      .verticalbar.is-dragging { opacity: 0.7; }
+
+      .square {
+        position: absolute;
+        width: 35px;
+        height: 35px;
         background: #2F4F4F;
         border-radius: 10px;
         z-index: 3;
@@ -349,9 +379,9 @@
         left: 750px;
       }
 
-      .draggable2.is-dragging { opacity: 0.7; }
+      .square.is-dragging { opacity: 0.7; }
 
-      .draggable3 {
+      .branch {
         position: absolute;
         width: 141px;
         height: 55px;
@@ -360,7 +390,34 @@
         left: 750px;
       }
 
-      .draggable3.is-dragging { opacity: 0.7; }
+      .branch.is-dragging { opacity: 0.7; }
+
+      .temp_ind1 {
+        position: absolute;
+        z-index: 2;
+        width: 224px;
+        height: 22px;
+        top: 180px;
+        left: 480px;
+      }
+
+      .temp_ind2 {
+        position: absolute;
+        z-index: 2;
+        width: 399px;
+        height: 112px;
+        top: 180px;
+        left: 340px;
+      }
+
+      .temp_ind3 {
+        position: absolute;
+        z-index: 2;
+        width: 559px;
+        height: 209px;
+        top: 180px;
+        left: 200px;
+      }
         
     </style>
 
@@ -404,6 +461,21 @@
                             <label class="btn btn-primary btn-lg" id="btnShading">
                               <input type="checkbox"> Shading
                             </label>
+                            <br>  
+                            <!-- Shading dropdown Dropdown -->
+                            <div class="dropdown">
+                              <button style="display:none" class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Shading Element
+                                <span class="caret"></span>
+                              </button>
+                              <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li value="1"><a href="#">Square</a></li>
+                                <li><a href="#">Vertical bar</a></li>
+                                <li><a href="#">Horizontal bar</a></li>
+                                <li><a href="#">Branch</a></li>
+                              </ul>
+                            </div>
+
                         </div>
                         </div>
 
@@ -473,7 +545,10 @@
 
                     <!-- Labels -->
           						<h1><span class="label label-warning label-intensity" style="display:none" id="showIntensity">Intensity </span></h1>
-          						<h1><span class="label label-danger label-temperature" style="display:none" id="showTemperature">Temperature </span></h1>
+                      
+          						<h1><span class="label label-danger label-temperaturePoly" style="display:none" id="showTemperaturePoly">Temperature </span></h1>
+                      <h1><span class="label label-danger label-temperatureThin" style="display:none" id="showTemperatureThin">Temperature </span></h1>
+                      <h1><span class="label label-danger label-temperatureMono" style="display:none" id="showTemperatureMono">Temperature </span></h1>
 
                     <!-- Sun -->
                       <img class="sun" src="images/sunw.gif" alt=""/>
@@ -485,10 +560,16 @@
                       <img class="cablebike" src="images/cablebike.gif" height="21" width="43" alt=""/>
 
                     <!-- Draggables -->
-                      <div class="draggable" style="display:none" id="showShading"></div>
-                      <div class="draggable2" style="display:none" id="showShading2"></div>
-                      <img class="draggable3" style="display:none" src="images/branch.png" id="showShading3" alt="" />
-                    
+                      <div class="verticalbar" style="display:none" id="showVertical"></div>
+                      <div class="horizontalbar" style="display:none" id="showHorizontal"></div>
+                      <div class="square" style="display:none" id="showSquare"></div>
+                      <img class="branch" style="display:none" src="images/branch.png" id="showBranch" alt="" />
+
+                    <!-- Temperature Indicators-->
+                      <img class="temp_ind1" id="showTempInd1" style="display:none" src="images/temp_ind1.png" alt="" />
+                      <img class="temp_ind2" id="showTempInd2" style="display:none" src="images/temp_ind2.png" alt="" />
+                      <img class="temp_ind3" id="showTempInd3" style="display:none" src="images/temp_ind3.png" alt="" /> 
+
                     </div>               
                   </div>
                 </div>
@@ -499,8 +580,8 @@
 <div class="dummyLoadDiv">
 <form name="dummyLoadForm" id"dummyLoadForm" class="dummyLoadForm" action="/dummyLoad" method="post">
 
-        <script>
-				var recordDataItem;
+      <script>
+			var recordDataItem;
 
 					
 			var datasocket = io.connect('http://127.0.0.1:1337');
@@ -513,22 +594,184 @@
 				});
 				
 				$( "#btnTemperature").click(function() {
-				  $( "#showTemperature" ).toggle();
+				  $( "#showTemperaturePoly" ).toggle();
+          $( "#showTemperatureThin" ).toggle();
+          $( "#showTemperatureMono" ).toggle();
+          $( "#showTempInd1" ).toggle();
+          $( "#showTempInd2" ).toggle();
+          $( "#showTempInd3" ).toggle();
 				});
 
         $( "#btnShading").click(function() {
-          $( "#showShading" ).toggle();
-          $( "#showShading2" ).toggle();
-          $( "#showShading3").toggle();
-        });
-
-        var $draggable = $('.draggable').draggabilly();
-				var $draggable2 = $('.draggable2').draggabilly();
-        var $draggable3 = $('.draggable3').draggabilly();
-
+          $( "#dropdownMenu1" ).toggle();
+          $( "#showSquare" ).hide();
+          $( "#showHorizontal" ).hide();
+          $( "#showBranch" ).hide();
+          $( "#showVertical" ).hide();
 
         });
-			
+
+        $('.dropdown-menu li a').click(function() {
+          if ($(this).text() == "Square"){
+            $( "#showSquare" ).show();
+            $( "#showHorizontal" ).hide();
+            $( "#showBranch" ).hide();
+            $( "#showVertical" ).hide();
+          }
+
+          if ($(this).text() == "Horizontal bar"){
+            $( "#showHorizontal" ).show();
+            $( "#showSquare" ).hide();
+            $( "#showBranch" ).hide();
+            $( "#showVertical" ).hide();
+          }
+
+          if ($(this).text() == "Branch"){
+            $( "#showHorizontal" ).hide();
+            $( "#showSquare" ).hide();
+            $( "#showBranch" ).show();
+            $( "#showVertical" ).hide();
+          }
+
+          if ($(this).text() == "Vertical bar"){
+            $( "#showHorizontal" ).hide();
+            $( "#showSquare" ).hide();
+            $( "#showBranch" ).hide();
+            $( "#showVertical" ).show();
+          }
+
+        });
+
+      });
+
+        var square = new Draggabilly('.square');
+        var squareStyle = document.getElementById('showSquare').style;
+        var horizontal = new Draggabilly('.horizontalbar');
+        var horizontalStyle = document.getElementById('showHorizontal').style;
+        var vertical = new Draggabilly('.verticalbar');
+        var verticalStyle = document.getElementById('showVertical').style;
+        var branch = new Draggabilly('.branch');
+        var branchStyle = document.getElementById('showBranch').style;
+
+ //Positioning of Square as shading element   
+    //Polycristalline Module      
+        square.on( 'dragEnd', function() {
+          console.log('dragEnd', square.position.x, square.position.y);
+          //Case 1: half cell is shaded
+          // 70 < x <= 200 and 170 < y <= 240
+          if(square.position.x > 70 && square.position.x <= 200 && square.position.y > 170 && square.position.y <= 240){
+            squareStyle.left = "92px";
+            squareStyle.top = "182px"; 
+            //Add a variable/flag to identify case so it can be exported.   
+          } ;
+          //Case 2: full cell is shaded
+          // 70 < x <= 200 and 241 < y <= 302
+          if(square.position.x > 70 && square.position.x <= 200 && square.position.y > 241 && square.position.y <= 302){
+            squareStyle.left = "92px";
+            squareStyle.top = "286px";   
+          } ;
+          //Case 3: four cells are shaded
+          // 70 < x <= 200 and 303 < y <= 363
+          if(square.position.x > 70 && square.position.x <= 200 && square.position.y > 303 && square.position.y <= 363){
+            squareStyle.left = "109px";
+            squareStyle.top = "330px";   
+          } ;
+          //Case 4: four cells are shaded
+          // 70 < x <= 200 and 364 < y <= 424
+          if(square.position.x > 70 && square.position.x <= 200 && square.position.y > 364 && square.position.y <= 424 ){
+            squareStyle.left = "109px";
+            squareStyle.top = "419px";   
+          } ;
+    //Monocristalline Module
+          //Case 1: half cell is shaded
+          // 348 < x <= 478 and 170 < y <= 240
+          if(square.position.x > 348 && square.position.x <= 478 && square.position.y > 170 && square.position.y <= 240){
+            squareStyle.left = "370px";
+            squareStyle.top = "182px";   
+          } ;
+          //Case 2: full cell is shaded
+          // 348 < x <= 478 and 241 < y <= 302
+          if(square.position.x > 348 && square.position.x <= 478 && square.position.y > 241 && square.position.y <= 302){
+            squareStyle.left = "370px";
+            squareStyle.top = "286px";   
+          } ;
+          //Case 3: four cells are shaded
+          // 348 < x <= 478 and 303 < y <= 363
+          if(square.position.x > 348 && square.position.x <= 478 && square.position.y > 303 && square.position.y <= 363){
+            squareStyle.left = "383px";
+            squareStyle.top = "330px";   
+          } ;
+          //Case 4: four cells are shaded
+          // 348 < x <= 478 and 364 < y <= 424
+          if(square.position.x > 348 && square.position.x <= 478 && square.position.y > 364 && square.position.y <= 424 ){
+            squareStyle.left = "383px";
+            squareStyle.top = "419px";   
+          } ;
+        });
+   
+ //Positioning of Horizontal bar as shading element   
+    //Polycristalline Module      
+        horizontal.on( 'dragEnd', function() {
+          console.log('dragEnd', horizontal.position.x, horizontal.position.y);
+          //Case 1: full row is shaded
+          // -23 < x <= 149 and 170 < y <= 296
+          if(horizontal.position.x > -23 && horizontal.position.x <= 149 && horizontal.position.y > 170 && horizontal.position.y <= 296){
+            horizontalStyle.left = "90px";
+            horizontalStyle.top = "196px"; 
+          } ;
+          //Case 2: two rows are half shaded
+          // -23 < x <= 149 and 241 < y <= 302
+          if(horizontal.position.x > -23 && horizontal.position.x <= 200 && horizontal.position.y > 297 && horizontal.position.y <= 431){
+            horizontalStyle.left = "90px";
+            horizontalStyle.top = "362px";
+          }   
+    //Monocristalline Module
+          //Case 1: full row is shaded
+          // 288 < x <= 486 and 170 < y <= 296
+          if(horizontal.position.x > 288 && horizontal.position.x <= 486 && horizontal.position.y > 170 && horizontal.position.y <= 296){
+            horizontalStyle.left = "367px";
+            horizontalStyle.top = "196px";   
+          } ;
+          //Case 2: two rows are half shaded
+          // 288 < x <= 486 and 241 < y <= 302
+          if(horizontal.position.x > 288 && horizontal.position.x <= 486 && horizontal.position.y > 297 && horizontal.position.y <= 431){
+            horizontalStyle.left = "367px";
+            horizontalStyle.top = "362px";
+          }  
+        });
+        
+ //Positioning of Vertical bar as shading element   
+    //Polycristalline Module      
+        vertical.on( 'dragEnd', function() {
+          console.log('dragEnd', vertical.position.x, vertical.position.y);
+          //Case 1: full row is shaded
+          // 69 < x <= 203 and 82 < y <= 246
+          if(vertical.position.x > 69 && vertical.position.x <= 203 && vertical.position.y > 82 && vertical.position.y <= 246){
+            verticalStyle.left = "90px";
+            verticalStyle.top = "196px"; 
+          } ;
+          //Case 2: two rows are half shaded
+          // 69 < x <= 203 and 247 < y <= 426
+          if(vertical.position.x > 69 && vertical.position.x <= 203 && vertical.position.y > 247 && vertical.position.y <= 426){
+            verticalStyle.left = "108px";
+            verticalStyle.top = "317px";
+          }   
+    //Monocristalline Module
+          //Case 1: full row is shaded
+          // 345 < x <= 485 and 82 < y <= 246
+          if(vertical.position.x > 345 && vertical.position.x <= 485 && vertical.position.y > 82 && vertical.position.y <= 246){
+            verticalStyle.left = "370px";
+            verticalStyle.top = "196px";   
+          } ;
+          //Case 2: two rows are half shaded
+          // 345 < x <= 485 and 247 < y <= 426
+          if(vertical.position.x > 345 && vertical.position.x <= 485 && vertical.position.y > 247 && vertical.position.y <= 426){
+            verticalStyle.left = "386px";
+            verticalStyle.top = "317px";
+          }  
+        });
+  //End of shading elements
+
 			datasocket.on('connect', function (data) {
 				//	console.log('record client connected ');
 				//	console.log('record connected data ' + data);
@@ -552,7 +795,9 @@
               document.getElementById("iMono").innerHTML = recordDataItem.I_mono + ' A';
               document.getElementById("pMono").innerHTML = recordDataItem.P_mono + ' W';
 							
-              document.getElementById("showTemperature").innerHTML = recordDataItem.T_mono + ' °C';
+              document.getElementById("showTemperaturePoly").innerHTML = recordDataItem.T_poly + ' °C';
+              document.getElementById("showTemperatureThin").innerHTML = recordDataItem.T_thin + ' °C';
+              document.getElementById("showTemperatureMono").innerHTML = recordDataItem.T_mono + ' °C';
 
               document.getElementById("battery").innerHTML = recordDataItem.B_soc + ' %';
               $bar.width(recordDataItem.B_soc*2);
@@ -575,12 +820,6 @@
 			
 				});  
 			});	
-		
-			  var popover = $('[data-toggle="popover"]').data('bs.popover');
-				popover.options.content = "YOUR NEW TEXT";
-		
-
-				
 				
         </script>
  </form>
