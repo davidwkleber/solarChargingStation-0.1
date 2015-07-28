@@ -489,7 +489,7 @@
                   <div class="jumbotron">
                     <div class="Diagram">
 
-                    <!--Polycristalline Module  -->
+                    <!--Polycrystalline Module  -->
                       <img class="poly" src="images/poly.png" width="137" height="279" alt=""/>
                       
                       <img class="meter-vPoly" src="images/meter.png" width="100" height="45" alt=""/>
@@ -582,7 +582,7 @@
 
       <script>
 			var recordDataItem;
-
+      var shadingStatus = "No shading";
 					
 			var datasocket = io.connect('http://127.0.0.1:1337');
       var $bar = $('.bar');
@@ -643,7 +643,8 @@
         });
 
       });
-
+        
+        //Draggable variables
         var square = new Draggabilly('.square');
         var squareStyle = document.getElementById('showSquare').style;
         var horizontal = new Draggabilly('.horizontalbar');
@@ -654,121 +655,142 @@
         var branchStyle = document.getElementById('showBranch').style;
 
  //Positioning of Square as shading element   
-    //Polycristalline Module      
+    //Polycrystalline Module      
         square.on( 'dragEnd', function() {
-          console.log('dragEnd', square.position.x, square.position.y);
+          console.log('Square dragEnd', square.position.x, square.position.y);
+          shadingStatus = "No Shading";
           //Case 1: half cell is shaded
           // 70 < x <= 200 and 170 < y <= 240
           if(square.position.x > 70 && square.position.x <= 200 && square.position.y > 170 && square.position.y <= 240){
             squareStyle.left = "92px";
-            squareStyle.top = "182px"; 
-            //Add a variable/flag to identify case so it can be exported.   
+            squareStyle.top = "182px";
+            shadingStatus = "Half Polycrystalline cell shaded by Square";    
           } ;
           //Case 2: full cell is shaded
           // 70 < x <= 200 and 241 < y <= 302
           if(square.position.x > 70 && square.position.x <= 200 && square.position.y > 241 && square.position.y <= 302){
             squareStyle.left = "92px";
-            squareStyle.top = "286px";   
+            squareStyle.top = "286px"; 
+            shadingStatus = "Full Polycrystalline cell shaded by Square";  
           } ;
           //Case 3: four cells are shaded
           // 70 < x <= 200 and 303 < y <= 363
           if(square.position.x > 70 && square.position.x <= 200 && square.position.y > 303 && square.position.y <= 363){
             squareStyle.left = "109px";
-            squareStyle.top = "330px";   
+            squareStyle.top = "330px"; 
+            shadingStatus = "Four Polycrystalline cells partly shaded by Square";  
           } ;
-          //Case 4: four cells are shaded
+          //Case 4: two cells are shaded
           // 70 < x <= 200 and 364 < y <= 424
           if(square.position.x > 70 && square.position.x <= 200 && square.position.y > 364 && square.position.y <= 424 ){
             squareStyle.left = "109px";
-            squareStyle.top = "419px";   
+            squareStyle.top = "419px";
+            shadingStatus = "Two Polycrystalline cells partly shaded by Square";   
           } ;
-    //Monocristalline Module
-          //Case 1: half cell is shaded
+    //Monocrystalline Module
+          //Case 5: half cell is shaded
           // 348 < x <= 478 and 170 < y <= 240
           if(square.position.x > 348 && square.position.x <= 478 && square.position.y > 170 && square.position.y <= 240){
             squareStyle.left = "370px";
-            squareStyle.top = "182px";   
+            squareStyle.top = "182px";  
+            shadingStatus = "Half Monocrystalline cell shaded by Square"; 
           } ;
-          //Case 2: full cell is shaded
+          //Case 6: full cell is shaded
           // 348 < x <= 478 and 241 < y <= 302
           if(square.position.x > 348 && square.position.x <= 478 && square.position.y > 241 && square.position.y <= 302){
             squareStyle.left = "370px";
-            squareStyle.top = "286px";   
+            squareStyle.top = "286px";  
+            shadingStatus = "Full Monocrystalline cell shaded by Square";  
           } ;
-          //Case 3: four cells are shaded
+          //Case 7: four cells are shaded
           // 348 < x <= 478 and 303 < y <= 363
           if(square.position.x > 348 && square.position.x <= 478 && square.position.y > 303 && square.position.y <= 363){
             squareStyle.left = "383px";
-            squareStyle.top = "330px";   
+            squareStyle.top = "330px"; 
+            shadingStatus = "Four Monocrystalline cells partly shaded by Square";   
           } ;
-          //Case 4: four cells are shaded
+          //Case 8: four cells are shaded
           // 348 < x <= 478 and 364 < y <= 424
           if(square.position.x > 348 && square.position.x <= 478 && square.position.y > 364 && square.position.y <= 424 ){
             squareStyle.left = "383px";
-            squareStyle.top = "419px";   
+            squareStyle.top = "419px";  
+            shadingStatus = "Two Monocrystalline cells partly shaded by Square";  
           } ;
+          console.log(shadingStatus);
         });
    
  //Positioning of Horizontal bar as shading element   
-    //Polycristalline Module      
+    //Polycrystalline Module      
         horizontal.on( 'dragEnd', function() {
-          console.log('dragEnd', horizontal.position.x, horizontal.position.y);
-          //Case 1: full row is shaded
+          console.log('Horizontal Bar dragEnd', horizontal.position.x, horizontal.position.y);
+          shadingStatus = "No Shading";
+          //Case 9: full row is shaded
           // -23 < x <= 149 and 170 < y <= 296
           if(horizontal.position.x > -23 && horizontal.position.x <= 149 && horizontal.position.y > 170 && horizontal.position.y <= 296){
             horizontalStyle.left = "90px";
             horizontalStyle.top = "196px"; 
+            shadingStatus = "Full row of Polycrystalline cells shaded by Horizontal Bar";  
           } ;
-          //Case 2: two rows are half shaded
+          //Case 10: two rows are half shaded
           // -23 < x <= 149 and 241 < y <= 302
           if(horizontal.position.x > -23 && horizontal.position.x <= 200 && horizontal.position.y > 297 && horizontal.position.y <= 431){
             horizontalStyle.left = "90px";
             horizontalStyle.top = "362px";
+            shadingStatus = "Two rows of Polycrystalline cells partly shaded by Horizontal Bar";
           }   
-    //Monocristalline Module
-          //Case 1: full row is shaded
+    //Monocrystalline Module
+          //Case 11: full row is shaded
           // 288 < x <= 486 and 170 < y <= 296
           if(horizontal.position.x > 288 && horizontal.position.x <= 486 && horizontal.position.y > 170 && horizontal.position.y <= 296){
             horizontalStyle.left = "367px";
             horizontalStyle.top = "196px";   
+            shadingStatus = "Full row of Monocrystalline cells shaded by Horizontal Bar"; 
           } ;
-          //Case 2: two rows are half shaded
+          //Case 12: two rows are half shaded
           // 288 < x <= 486 and 241 < y <= 302
           if(horizontal.position.x > 288 && horizontal.position.x <= 486 && horizontal.position.y > 297 && horizontal.position.y <= 431){
             horizontalStyle.left = "367px";
             horizontalStyle.top = "362px";
+            shadingStatus = "Two rows of Monocrystalline cells partly shaded by Horizontal Bar";
           }  
+          console.log(shadingStatus);
         });
         
  //Positioning of Vertical bar as shading element   
-    //Polycristalline Module      
+    //Polycrystalline Module      
         vertical.on( 'dragEnd', function() {
-          console.log('dragEnd', vertical.position.x, vertical.position.y);
-          //Case 1: full row is shaded
+          console.log('Vertical Bar dragEnd', vertical.position.x, vertical.position.y);
+          shadingStatus = "No Shading";
+          //Case 13: full column is shaded
           // 69 < x <= 203 and 82 < y <= 246
           if(vertical.position.x > 69 && vertical.position.x <= 203 && vertical.position.y > 82 && vertical.position.y <= 246){
             verticalStyle.left = "90px";
             verticalStyle.top = "196px"; 
+            shadingStatus = "Full column of Polycrystalline cells shaded by Vertical Bar"; 
           } ;
-          //Case 2: two rows are half shaded
+          //Case 14: two columns are half shaded
           // 69 < x <= 203 and 247 < y <= 426
           if(vertical.position.x > 69 && vertical.position.x <= 203 && vertical.position.y > 247 && vertical.position.y <= 426){
             verticalStyle.left = "108px";
             verticalStyle.top = "317px";
+            shadingStatus = "Two columns of Polycrystalline cells partly shaded by Vertical Bar"; 
           }   
-    //Monocristalline Module
-          //Case 1: full row is shaded
+    //Monocrystalline Module
+          //Case 15: full row is shaded
           // 345 < x <= 485 and 82 < y <= 246
           if(vertical.position.x > 345 && vertical.position.x <= 485 && vertical.position.y > 82 && vertical.position.y <= 246){
             verticalStyle.left = "370px";
-            verticalStyle.top = "196px";   
+            verticalStyle.top = "196px"; 
+            shadingStatus = "Full column of Monocrystalline cells shaded by Vertical Bar";   
           } ;
-          //Case 2: two rows are half shaded
+          //Case 16: two rows are half shaded
           // 345 < x <= 485 and 247 < y <= 426
           if(vertical.position.x > 345 && vertical.position.x <= 485 && vertical.position.y > 247 && vertical.position.y <= 426){
             verticalStyle.left = "386px";
             verticalStyle.top = "317px";
+            shadingStatus = "Two columns of Monocrystalline cells partly shaded by Vertical Bar"; 
           }  
+          console.log(shadingStatus);
         });
   //End of shading elements
 
@@ -779,7 +801,7 @@
 				jQuery(function ($) {
 					datasocket.on('updateData', function (data) {
 						// console.log('record update raw: ' + data);
-						
+
 							recordDataItem = JSON.parse(data);
 							document.getElementById("showIntensity").innerHTML = recordDataItem.L_wm2 + ' W/m2';
 							
